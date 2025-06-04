@@ -165,6 +165,19 @@ vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
 vim.keymap.set('x', '<leader>p', '"_dP')
+
+vim.g.clipboard = {
+  name = 'wl-clipboard',
+  copy = {
+    ['+'] = 'wl-copy --foreground --type text/plain',
+    ['*'] = 'wl-copy --foreground --type text/plain',
+  },
+  paste = {
+    ['+'] = 'wl-paste --no-newline',
+    ['*'] = 'wl-paste --no-newline',
+  },
+  cache_enabled = true,
+}
 vim.keymap.set('n', '<leader>y', '"+y')
 vim.keymap.set('v', '<leader>y', '"+y')
 
@@ -871,6 +884,10 @@ require('lazy').setup({
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
+      require('tokyonight').setup {
+        style = 'moon',
+        transparent = true,
+      }
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as '', 'tokyonight-moon', or 'tokyonight-day'.
@@ -880,7 +897,6 @@ require('lazy').setup({
       vim.cmd.hi 'Comment gui=none'
     end,
   },
-  -- TODO: Implement user login here
   --
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
